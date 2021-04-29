@@ -33,6 +33,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.15.4
+      - name: Yarn install
       - uses: borales/actions-yarn@v2.0.0
           run: yarn install --pure-lockfile
       - name: Build and run tests
