@@ -35,7 +35,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Lint rubocop
         run: 
-          gem install bundler
           bundle install
           rubocop
       - name: Run rails tests
