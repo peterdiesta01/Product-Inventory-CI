@@ -31,11 +31,11 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.1
+          bundler-cache: true
+          
       - name: Bundle Install
         run: 
           bundle install 
