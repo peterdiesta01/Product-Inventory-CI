@@ -38,8 +38,7 @@ jobs:
           bundler-cache: true
       - name: Bundle Install
         run: 
-          gem install bundler
-          bundle install 
+          gem install bundler && bundle install 
       - name: Lint  rubocop
         run: 
           rubocop 
