@@ -36,10 +36,7 @@ jobs:
         with:
           ruby-version: 2.7.1
           bundler-cache: true
-      - name: Gem Bundler Install
-        run: 
-          gem install bundler 
-       - name: Bundle Install
+      - name: Bundle Install
         run: 
           bundle install  
       - name: Lint  rubocop
