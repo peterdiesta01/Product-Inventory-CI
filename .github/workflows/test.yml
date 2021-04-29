@@ -16,17 +16,13 @@ jobs:
         image: redis
         ports: ['6379:6379']
         options: --entrypoint redis-server
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v1
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
         with:
-          bundler-cache: true
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.15.4
+          ruby-version: 2.7.x
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
@@ -41,4 +37,4 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
-          bin/rspec
+          bundle exec rails test
