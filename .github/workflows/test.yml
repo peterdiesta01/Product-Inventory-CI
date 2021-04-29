@@ -10,7 +10,7 @@ env:
   DB_PASSWORD: postgres
 
 jobs:
-  my_image_test:
+  product_test:
     runs-on: ubuntu-latest
 
     services:
@@ -33,6 +33,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Lint rubocop
-        run: docker run $registry/my_image bundle exec rubocop
+        run:  bundle exec rubocop
       - name: Run rails tests
         run:  bash -c "RAILS_ENV=test rails db:create && RAILS_ENV=test rails db:migrate && rails test"
