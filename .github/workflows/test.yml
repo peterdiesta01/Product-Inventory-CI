@@ -35,7 +35,7 @@ jobs:
       - name: Lint rubocop
         run: 
           gem install bundler
-          bundle install --jobs 4 --retry 3
+          bundle install --retry 3
           bundle exec rubocop
       - name: Run rails tests
         run:            
