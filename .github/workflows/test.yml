@@ -35,4 +35,4 @@ jobs:
       - name: Lint rubocop
         run: docker run $registry/my_image bundle exec rubocop
       - name: Run rails tests
-        run: docker run --network="host" $registry/my_image bash -c "RAILS_ENV=test rails db:create && RAILS_ENV=test rails db:migrate && rails test"
+        run:  bash -c "RAILS_ENV=test rails db:create && RAILS_ENV=test rails db:migrate && rails test"
