@@ -33,6 +33,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Lint rubocop
-        run:  bundle exec rubocop
+        run: 
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rubocop
       - name: Run rails tests
-        run:  bash -c "RAILS_ENV=test rails db:create && RAILS_ENV=test rails db:migrate && rails test"
+        run:            
+          RAILS_ENV=test rails db:create && RAILS_ENV=test rails db:migrate && rails rspec
