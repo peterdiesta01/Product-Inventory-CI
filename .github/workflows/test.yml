@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 pull_request
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:latest
