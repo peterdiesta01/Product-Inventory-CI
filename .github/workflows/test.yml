@@ -18,11 +18,17 @@ jobs:
         options: --entrypoint redis-server
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.x
+          bundler-cache: true
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.4
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
