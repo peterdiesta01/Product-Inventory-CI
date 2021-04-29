@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 pull_request
     services:
       postgres:
         image: postgres:latest
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.7.1
+          ruby-version: 2.7
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
