@@ -36,9 +36,11 @@ jobs:
         with:
           ruby-version: 2.7.1
           bundler-cache: true
-      - name: Bundle Install
-        run: 
-          bundle install  
+      - name: Gem Bundler Install
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
       - name: Lint  rubocop
         run: 
           rubocop 
