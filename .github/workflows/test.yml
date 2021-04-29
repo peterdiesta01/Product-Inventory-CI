@@ -1,43 +1,46 @@
 name: Test
-
-on: [push]
+on: [push, pull_request]
 
 env:
-  # Not sure these are actually being passed down to rails, set them as the default in database.yml
   DB_HOST: localhost
   DB_USERNAME: postgres
   DB_PASSWORD: postgres
-
+  
 jobs:
-  product_test:
+  test:
     runs-on: ubuntu-latest
-
     services:
-      postgres:
+      db:
         image: postgres:latest
-        env:
-          POSTGRES_DB: postgres        
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-
-        ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
+        ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-      - name: Lint rubocop
-        run: 
+      - uses: actions/checkout@v1
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+      - name: Build and run tests
+        env:
+          DATABASE_URL: postgres://postgres:@localhost:5432/test
+          REDIS_URL: redis://localhost:6379/0
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          sudo apt-get -yqq install libpq-dev
           gem install bundler
-          bundle install
-          bundle exec rubocop
-      - name: Run rails tests
-        run:            
-          RAILS_ENV=test rails db:create && RAILS_ENV=test rails db:migrate && rails rspec
+          bundle install --jobs 4 --retry 3
+          bundle exec rails db:prepare
+          bundle exec rails test
