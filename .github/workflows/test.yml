@@ -40,6 +40,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          DATABASE_URL: postgres://postgres:@localhost:5432/test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           sudo apt-get -yqq install libpq-dev
