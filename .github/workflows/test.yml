@@ -12,7 +12,6 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
         ports:
           - 5432:5432
@@ -38,7 +37,8 @@ jobs:
           yarn install --pure-lockfile
       - name: Build and run tests
         env:
-          DB_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           DATABASE_URL: postgres://postgres:@localhost:5432/test
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
