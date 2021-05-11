@@ -12,7 +12,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-
+          POSTGRES_DB: product_inventory_ci_test
         ports:
           - 5432:5432
         # Set health checks to wait until postgres has started
@@ -38,6 +38,7 @@ jobs:
       - name: Build and run tests
         env:
           RAILS_ENV: test
+          PGUSER: postgres
           PGHOST: localhost
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
