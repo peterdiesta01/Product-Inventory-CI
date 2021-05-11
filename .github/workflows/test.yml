@@ -39,6 +39,7 @@ jobs:
         env:
           RAILS_ENV: test
           PGUSER: postgres
+          PGPASSWORD: postgres
           PGHOST: localhost
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
