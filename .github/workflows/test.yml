@@ -49,4 +49,5 @@ jobs:
           rubocop
           bundle exec rails db:reset          
         - name: Run tests
-        run: bin/rspec
+        run: |
+          bin/rspec
