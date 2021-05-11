@@ -47,7 +47,6 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
           rubocop
-          bundle exec rails db:reset
-          
+          bundle exec rails db:reset          
         - name: Run tests
         run: bin/rspec
